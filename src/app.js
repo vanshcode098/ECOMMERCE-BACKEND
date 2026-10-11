@@ -1,21 +1,20 @@
+
 import express from "express";
 import cookieParser from "cookie-parser";
-import AppError from "./utils/AppError.js";
+import userRoutes from "./routes/user.routes.js";
 import errorHandler from "./middleware/errorHandler.js";
 
-
-const app= express();
+const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
 
-app.get("/",(req,res)=>{
-    res.status(200).json({
-        success:true,
-        message:"welcome to my ecommerce webpage"
-    });
+app.get("/", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "welcome to my ecommerce webpage",
+  });
 });
-
 
 app.get("/health", (req, res) => {
   res.status(200).json({
@@ -25,8 +24,9 @@ app.get("/health", (req, res) => {
   });
 });
 
+app.use("/api/users", userRoutes);
+
 
 app.use(errorHandler);
-
 
 export default app;
